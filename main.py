@@ -1,14 +1,7 @@
 from flask import Flask
 from flask_restx import Api
-from bp.user import user_bp, auth_namespace
-from bp.task import task_bp, tasks_namespace
-
-
-def register_blueprints_and_namespaces(app, api):
-    app.register_blueprint(user_bp)
-    app.register_blueprint(task_bp)
-    api.add_namespace(auth_namespace)
-    api.add_namespace(tasks_namespace)
+from namespaces.user import auth_ns
+from namespaces.task import tasks_ns
 
 
 app = Flask(__name__)
@@ -20,9 +13,14 @@ api = Api(
     prefix='/api'
 )
 
-register_blueprints_and_namespaces(app, api)
+
+def init():
+    api.add_namespace(auth_ns)
+    api.add_namespace(tasks_ns)
+    app.run(port=8000, debug=True)
+
 
 if __name__ == '__main__':
-    app.run(port=8000, debug=True)
+    init()
 
 
