@@ -1,5 +1,5 @@
 from flask_restx import Namespace
-from resources.task import Task, TaskList
+from application.resources.task import Task, TaskList
 
 tasks_ns = Namespace('tasks', description='Tasks endpoints')
 tasks_ns.add_resource(TaskList, '/')
